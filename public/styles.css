@@ -1,0 +1,87 @@
+:root {
+    --blue-900: #29599F;
+    --blue-700: #386AB5;
+    --accent: #FF6C36;
+    --gray-1: #E6E6E6;
+    --text: #111;
+    --white: #fff;
+}
+  
+* {
+    box-sizing: border-box;
+}
+  
+body {
+    margin: 0;
+    font-family: 'Kadwa', system-ui, sans-serif;
+    background: var(--gray-1);
+    color: var(--text);
+}
+  
+/* Header */
+.site-header {
+    background: var(--blue-700);
+    color: white;
+    padding: 20px 30px;
+}
+
+/* Footer */
+.site-footer {
+    background: var(--blue-700);
+    color: white;
+    padding: 20px 30px;
+}
+  
+.brand-title {
+    font-family: 'Irish Grover', cursive;
+    font-size: 36px;
+}
+  
+.brand-sub {
+    font-family: 'Irish Grover', cursive;
+    color: #F0F559;
+    font-size: 18px;
+}
+  
+/* Layout */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+  
+/* Titles */
+.page-title {
+    text-align: center;
+    color: var(--blue-900);
+    margin-bottom: 30px;
+}
+  
+.api-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+  
+.api-section h2 {
+    margin-top: 0;
+    color: var(--blue-900);
+}
+  
+/* Buttons */
+.btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 16px;
+    background: var(--accent);
+    color: white;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+}
+  
+.btn:hover {
+    opacity: 0.9;
+}

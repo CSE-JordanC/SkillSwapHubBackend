@@ -1,17 +1,51 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <h1>Skill API</h1>
-        <h2>See All Skills:</h2>
-        <p><a href="/api/skills">All Skills</a><p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap Hub API</title>
 
-        <h2>Git Individual Skill:</h2>
-        <p><a href="/api/skills/1">Individual Skill</a><p>
+    <link href="https://fonts.googleapis.com/css2?family=Kadwa:wght@400;700&family=Irish+Grover&display=swap" rel="stylesheet">
 
-        <h2>Git Individual Image:</h2>
-        <p><a href="/images/digitalphotography.png">Individual Image</a><p>
-    </body>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="brand">
+            <div class="brand-title">SkillSwap Hub</div>
+            <div class="brand-sub">API Access</div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <h1 class="page-title">Skill API</h1>
+
+        <section class="api-section">
+            <h2>All Skills</h2>
+            <p>Returns a list of all available skills.</p>
+            <a class="btn" href="/api/skills">View</a>
+        </section>
+
+        <section class="api-section">
+            <h2>Single Skill</h2>
+            <p>Returns one skill by ID.</p>
+            <a class="btn" href="/api/skills/1">View</a>
+        </section>
+
+        <section class="api-section">
+            <h2>Skill Image</h2>
+            <p>Returns a skill image.</p>
+            <a class="btn" href="/images/digitalphotography.png">View</a>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        
+    </footer>
+
+</body>
 </html>
