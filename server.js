@@ -23,6 +23,7 @@ app.use(
 app.use(express.json());
 app.use(express.static("public"));
 
+/* Ensure image folder exists */
 fs.mkdirSync("./public/images", { recursive: true });
 
 /* -------------------- Multer -------------------- */
@@ -40,7 +41,10 @@ const upload = multer({ storage });
 /* -------------------- MongoDB -------------------- */
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("Connected to MongoDB"))
+  .then(async () => {
+    console.log("Connected to MongoDB");
+    await seedSkills();
+  })
   .catch((err) => console.log("MongoDB connection error:", err));
 
 /* -------------------- Schema -------------------- */
@@ -56,6 +60,107 @@ const skillSchema = new mongoose.Schema({
 
 const Skill = mongoose.model("Skill", skillSchema);
 
+/* -------------------- Seed Data -------------------- */
+const seedSkills = async () => {
+  const count = await Skill.countDocuments();
+
+  if (count === 0) {
+    console.log("Seeding database...");
+
+    const defaultSkills = [
+      {
+        title: "Guitar Basics",
+        img_name: "guitarbasics.png",
+        category: "Music",
+        level: "Beginner",
+        lessons: 6,
+        instructor: "Alex M.",
+        description: "Open chords, strumming patterns, and 3 easy songs.",
+      },
+      {
+        title: "Intro to Web Design",
+        img_name: "introtoweb.png",
+        category: "Tech",
+        level: "Intermediate",
+        lessons: 8,
+        instructor: "Priya S.",
+        description: "HTML/CSS fundamentals and simple responsive layout.",
+      },
+      {
+        title: "Personal Fitness",
+        img_name: "personalfitness.png",
+        category: "Health",
+        level: "Advanced",
+        lessons: 10,
+        instructor: "Rafael K.",
+        description: "Strength, mobility, and tailored home workouts.",
+      },
+      {
+        title: "Digital Photography",
+        img_name: "digitalphotography.png",
+        category: "Creative",
+        level: "Beginner",
+        lessons: 5,
+        instructor: "Jamie L.",
+        description: "Basic camera settings, composition, and editing tips.",
+      },
+      {
+        title: "Spanish Basics",
+        img_name: "spanishbasics.png",
+        category: "Language",
+        level: "Beginner",
+        lessons: 6,
+        instructor: "María R.",
+        description: "Everyday phrases, pronunciation, and short dialogues.",
+      },
+      {
+        title: "Intro to Painting",
+        img_name: "introtopainting.png",
+        category: "Art",
+        level: "Beginner",
+        lessons: 4,
+        instructor: "C. Nguyen",
+        description: "Watercolor basics and easy still-life exercises.",
+      },
+      {
+        title: "Songwriting Essentials",
+        img_name: "songwriting_essentials.png",
+        category: "Music",
+        level: "Intermediate",
+        lessons: 4,
+        instructor: "Alex M.",
+        description:
+          "Structure, melody, and lyric writing exercises for original songs.",
+      },
+      {
+        title: "Portrait Lighting Basics",
+        img_name: "portrait_lighting.png",
+        category: "Creative",
+        level: "Beginner",
+        lessons: 3,
+        instructor: "Jamie L.",
+        description:
+          "Simple lighting setups for flattering portraits using natural and artificial light.",
+      },
+      {
+        title: "Intro to Adobe Illustrator",
+        img_name: "intro_to_illustrator.png",
+        category: "Tech",
+        level: "Beginner",
+        lessons: 6,
+        instructor: "Priya S.",
+        description:
+          "Vector basics: shapes, pen tool, type, and exporting assets for web.",
+      },
+    ];
+
+    await Skill.insertMany(defaultSkills);
+    console.log("Database seeded!");
+  } else {
+    console.log("Database already populated.");
+  }
+};
+
 /* -------------------- Routes -------------------- */
 
 // GET all
@@ -67,10 +172,12 @@ app.get("/api/skills", async (req, res) => {
 // GET one
 app.get("/api/skills/:id", async (req, res) => {
   const skill = await Skill.findById(req.params.id);
+
   if (!skill) {
     res.status(404).send({ error: "Skill not found" });
     return;
   }
+
   res.send(skill);
 });
 
@@ -149,7 +256,7 @@ app.delete("/api/skills/:id", async (req, res) => {
   res.status(200).send(skill);
 });
 
-/* -------------------- Joi Validation -------------------- */
+/* -------------------- Validation -------------------- */
 const validateSkill = (skill) => {
   const schema = Joi.object({
     title: Joi.string().min(3).required(),
